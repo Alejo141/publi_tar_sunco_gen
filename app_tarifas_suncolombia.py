@@ -212,7 +212,15 @@ st.markdown("""
 # ── Load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    xl = pd.ExcelFile(BASE_DIR / "Base_Tarifas_Publicacion.xlsx")
+    candidates = [
+        BASE_DIR / "Base_Tarifas_Publicacion.xlsx",
+        BASE_DIR / "Base Tarifas Publicacion.xlsx",
+    ]
+    excel_path = next((p for p in candidates if p.exists()), None)
+    if excel_path is None:
+        st.error(f"No se encontro el Excel. Archivos: {list(BASE_DIR.iterdir())}")
+        st.stop()
+    xl = pd.ExcelFile(excel_path)
     dfs = {}
     for sheet in xl.sheet_names:
         df = xl.parse(sheet)
