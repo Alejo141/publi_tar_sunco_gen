@@ -191,7 +191,8 @@ def img_to_b64(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-logo_path = Path("suncolombia_logo.png")
+BASE_DIR = Path(__file__).parent
+logo_path = BASE_DIR / "suncolombia_logo.png"
 if logo_path.exists():
     logo_b64 = img_to_b64(logo_path)
     st.markdown(f"""
@@ -211,7 +212,7 @@ st.markdown("""
 # ── Load data ─────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    xl = pd.ExcelFile("Base_Tarifas_Publicacion.xlsx")
+    xl = pd.ExcelFile(BASE_DIR / "Base_Tarifas_Publicacion.xlsx")
     dfs = {}
     for sheet in xl.sheet_names:
         df = xl.parse(sheet)
