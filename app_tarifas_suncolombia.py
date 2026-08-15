@@ -13,14 +13,6 @@ st.set_page_config(
 
 BASE_DIR = Path(__file__).parent
 
-# ── Debug panel (se puede desactivar luego) ───────────────────────────────────
-with st.expander("🔧 Info de diagnóstico (borrar en producción)", expanded=False):
-    st.write(f"**BASE_DIR:** `{BASE_DIR}`")
-    try:
-        archivos = [str(p.name) for p in BASE_DIR.iterdir()]
-        st.write("**Archivos en el repo:**", archivos)
-    except Exception as e:
-        st.write(f"Error listando archivos: {e}")
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
 st.markdown("""
